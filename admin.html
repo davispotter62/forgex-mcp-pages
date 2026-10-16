@@ -1,0 +1,135 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><title>MCP Beta admin | ForgeX</title>
+<script>if (window.top !== window.self) window.top.location = window.self.location;</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&family=Newsreader:opsz@6..72&display=swap">
+<style>
+:root{--ivory:#FAF7F2;--paper:#F3EEE6;--panel:#F6F1E9;--ink:#0B0B0F;--pink:#E63888;--rule:#E2DBD0;--muted:#5E5A55;--err:#B4232A}
+*{box-sizing:border-box}html,body{margin:0}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 16px;background:var(--paper);color:var(--ink);font:15px/1.5 Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.card{width:100%;max-width:520px;background:var(--ivory);border:1px solid var(--rule);padding:32px}
+.logo svg{height:36px;width:auto;display:block}
+.eyebrow{margin:24px 0 0;font:500 11px/1 "Geist Mono",ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font:400 26px/1.2 Newsreader,Georgia,serif;margin:8px 0 0}
+p{margin:10px 0 0}.muted{color:var(--muted);font-size:14px}.small{font-size:12px;color:var(--muted)}
+label{display:block;font-size:14px;font-weight:500;margin-top:16px}.hint{font-weight:400;font-size:12px;color:var(--muted)}
+input[type=text],input[type=email],textarea{width:100%;margin-top:6px;border:1px solid var(--rule);background:var(--ivory);padding:9px 12px;font:inherit;color:inherit}
+input:focus,textarea:focus{outline:none;border-color:var(--ink)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400}.check input{margin-top:4px}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;align-items:center}
+button{font:500 14px/1 inherit;height:40px;padding:0 16px;border:1px solid var(--ink);background:var(--ink);color:var(--ivory);cursor:pointer}
+button.secondary{background:transparent;color:var(--ink)}button.link{border:0;background:none;color:var(--ink);text-decoration:underline;text-underline-offset:4px;padding:0;height:auto}
+button:disabled{opacity:.5;cursor:default}
+.notice{margin-top:16px;border-left:2px solid var(--rule);background:var(--panel);padding:10px 12px;font-size:14px}
+.notice.err{border-color:var(--err)}.notice.ok{border-color:var(--ink)}
+ul{margin:6px 0 0;padding-left:20px;color:var(--muted);font-size:14px}
+.qr{width:176px;height:176px;border:1px solid var(--rule);background:#fff;padding:8px;margin-top:12px}
+.mono{font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:12px;word-break:break-all;color:var(--muted)}
+[hidden]{display:none!important}
+.card{max-width:1080px}h2{font:500 15px/1.3 Geist,sans-serif;margin:28px 0 8px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.stat{border:1px solid var(--rule);padding:12px;background:#fff}.stat b{display:block;font-size:22px;font-weight:500}
+.req{border:1px solid var(--rule);background:#fff;padding:14px;margin-top:10px}.tablewrap{overflow-x:auto;border:1px solid var(--rule);background:#fff}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}th{font-weight:500;color:var(--muted);font-size:12px}.r{text-align:right}
+.pill{display:inline-block;border-radius:99px;padding:2px 8px;font-size:12px;text-transform:capitalize}.pill.pending{background:var(--pink);color:#fff}.pill.approved{background:#3b1d3a;color:#fff}.pill.revoked{background:#f3c6d6}.pill.declined{background:var(--paper)}
+.bars{display:flex;align-items:flex-end;gap:3px;height:140px;border:1px solid var(--rule);background:#fff;padding:10px}.bars div{flex:1;background:#3b1d3acc;min-height:2px}.bars div.z{background:var(--rule)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}ul.plain{list-style:none;padding:0;margin:0;border:1px solid var(--rule);background:#fff}ul.plain li{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink)}
+pre.mail{white-space:pre-wrap;font:13px/1.5 Geist,sans-serif;border:1px solid var(--rule);background:var(--panel);padding:10px;margin-top:8px}
+button.sm{height:30px;padding:0 10px;font-size:13px}button.danger{background:#fff;color:var(--err);border-color:var(--err)}
+@media (max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}}</style></head><body><main class="card"><div class="logo" aria-label="ForgeX"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="86 35 908 237" style="enable-background:new 86 35 908 237;" xml:space="preserve" width="908" height="237"> <style type="text/css"> 	.st0{fill:#010101;} </style> <g> 	<g> 		<path d="M90,215.9V39.1h118.2v28.5h-85.7v48.9h75v28.7h-75v70.7H90z"/> 		<path d="M286.7,218.8c-12.5,0-23.9-2.9-34.3-8.8c-10.4-5.9-18.6-13.8-24.8-24c-6.2-10.1-9.3-21.7-9.3-34.6c0-13,3.1-24.5,9.3-34.6    c6.2-10.1,14.4-18.1,24.7-24c10.3-5.9,21.8-8.8,34.4-8.8c12.8,0,24.4,2.9,34.6,8.8c10.3,5.9,18.5,13.8,24.6,23.9    c6.1,10.1,9.1,21.6,9.1,34.8c0,13-3.1,24.5-9.3,34.6c-6.2,10.1-14.4,18.1-24.7,24C310.9,215.8,299.4,218.8,286.7,218.8z     M286.7,190.3c7.1,0,13.3-1.7,18.6-5c5.3-3.3,9.5-8,12.6-13.9c3.1-5.9,4.6-12.6,4.6-20.1c0-7.4-1.5-14.1-4.6-19.9    c-3.1-5.9-7.3-10.4-12.6-13.8c-5.3-3.3-11.5-5-18.6-5c-7,0-13.1,1.7-18.5,5c-5.4,3.3-9.6,7.9-12.7,13.8    c-3.1,5.9-4.6,12.5-4.6,19.9c0,7.4,1.5,14.1,4.6,20.1c3.1,5.9,7.3,10.6,12.7,13.9C273.6,188.6,279.8,190.3,286.7,190.3z"/> 		<path d="M378.3,215.9V86.8h29.4v28.7l-2.4-4.3c3-9.6,7.7-16.4,14.1-20.2c6.4-3.8,14.1-5.7,23.1-5.7h7.6v27.8h-11.2    c-8.9,0-16,2.7-21.4,8.1c-5.4,5.4-8.1,13-8.1,22.8v71.9H378.3z"/> 		<path d="M530,268.1c-9.7,0-18.6-1.6-26.8-4.7c-8.2-3.2-15.3-7.6-21.2-13.2c-5.9-5.6-10.2-12.2-12.9-19.8l29-10.9    c1.9,6,5.7,10.9,11.3,14.6c5.6,3.7,12.5,5.6,20.5,5.6c6.3,0,11.9-1.2,16.7-3.6c4.8-2.4,8.6-5.8,11.4-10.3    c2.8-4.5,4.2-9.9,4.2-16.3v-29.4l5.7,7.1c-4.4,7.8-10.3,13.6-17.7,17.6c-7.4,4-15.9,5.9-25.5,5.9c-11.9,0-22.5-2.8-32-8.3    c-9.5-5.5-17-13.1-22.4-22.8c-5.5-9.7-8.2-20.5-8.2-32.5c0-12.2,2.7-23,8.2-32.5c5.5-9.5,12.9-17,22.2-22.4    c9.3-5.5,19.9-8.2,31.8-8.2c9.6,0,18.1,2,25.4,6.1c7.3,4,13.4,9.8,18.3,17.4l-4,7.8V86.8h29.4v122.7c0,11.2-2.7,21.3-8.2,30.1    c-5.5,8.9-12.9,15.8-22.3,20.9C553.2,265.6,542.3,268.1,530,268.1z M528.6,182c6.6,0,12.5-1.5,17.4-4.4c5-2.9,8.9-7,11.7-12.2    s4.3-11.2,4.3-18c0-6.6-1.5-12.6-4.4-17.8c-2.9-5.2-6.9-9.3-11.9-12.3c-5-3-10.7-4.5-17.2-4.5s-12.3,1.5-17.6,4.5    c-5.2,3-9.3,7.1-12.2,12.3c-2.9,5.2-4.4,11.2-4.4,17.8c0,6.6,1.5,12.6,4.4,17.8c2.9,5.2,7,9.3,12.1,12.3    C516,180.5,521.9,182,528.6,182z"/> 		<path d="M683.1,218.8c-13.3,0-25-3-35-9c-10-6-17.8-14.2-23.4-24.4c-5.5-10.3-8.3-21.7-8.3-34.2c0-13,2.8-24.5,8.5-34.5    c5.7-10,13.4-18,23-23.9c9.6-5.9,20.6-8.8,32.7-8.8c10.1,0,19,1.7,26.7,5c7.7,3.3,14.2,7.9,19.6,13.8c5.4,5.9,9.5,12.5,12.3,20.1    c2.8,7.5,4.3,15.6,4.3,24.3c0,2.4-0.1,4.7-0.4,7c-0.2,2.3-0.7,4.4-1.3,6.3h-99.7v-24h82.1l-15,11.2c1.6-7.3,1.3-13.8-0.8-19.5    c-2.1-5.7-5.6-10.2-10.4-13.5c-4.8-3.3-10.6-5-17.4-5c-6.5,0-12.3,1.7-17.3,5c-5.1,3.3-8.9,8.1-11.5,14.2    c-2.6,6.2-3.6,13.7-3,22.5c-0.6,7.9,0.4,14.9,3.2,21c2.8,6.1,6.9,10.8,12.3,14.1c5.5,3.3,11.7,5,18.9,5c7.1,0,13.2-1.5,18.2-4.5    c5-3,8.9-7,11.7-12.1l25.2,12.3c-2.5,6.2-6.5,11.6-11.9,16.4c-5.4,4.7-11.8,8.5-19.2,11.2C699.8,217.4,691.8,218.8,683.1,218.8z"/> 	</g> 	<g> 		<path class="st0" d="M986.5,44l3.5-4.9h-60.1c-12.5,0-24.2,6.2-31.2,16.5l-27.8,41l6.5,9L986.5,44z"/> 		<polygon class="st0" points="910.6,151.6 981.8,50.7 879.5,108.5   "/> 		<path class="st0" d="M824.2,212.4l-4.3,52.6c5.9-2.6,11.2-6.6,15.2-11.9l30.3-40.2l-11.2-21.2L824.2,212.4z"/> 		<path class="st0" d="M816.5,41.5c-4.2-1.6-8.6-2.4-13.2-2.4h-60.8l6.3,9.2l4,5.5l67.6,39.3L816.5,41.5z"/> 		<path class="st0" d="M745.5,266.8l-0.9,1.3H805c3.9,0,7.7-0.6,11.3-1.7l4.2-51.4L745.5,266.8z"/> 		<polygon class="st0" points="825.1,158.5 751.8,258.2 820.9,210.5   "/> 		<polygon class="st0" points="824.5,99.4 828.7,153.7 891.5,138.4   "/> 		<polygon class="st0" points="891.5,142 828.7,157.3 824.6,207.9 853.7,187.8   "/> 		<path class="st0" d="M906.2,261.3c6.3,4.4,13.8,6.9,21.7,6.9h60c-1.1-1.5-2.2-3.1-3.3-4.6L903.7,224L906.2,261.3z"/> 		<polygon class="st0" points="757.9,60.7 825.1,153.2 820.8,97.3   "/> 		<path class="st0" d="M980.3,257.5c-27.4-37.8-54.7-75.6-82-113.5l5.2,75.9L980.3,257.5z"/> 		<path class="st0" d="M891.1,134.2c-19.1-26.5-38.2-52.9-57.3-79.4c-3.6-5-8.4-9-13.8-11.7l4,52.1L891.1,134.2z"/> 		<path class="st0" d="M856.9,189.3l14.5,27.5l26,35.7c1.5,2.1,3.3,4,5.1,5.7l-7.8-114.7L856.9,189.3z"/> 	</g> </g> </svg></div>
+<p class="eyebrow">ForgeX Brain beta · Staff</p>
+<section id="s-loading"><p class="muted">Checking your session…</p></section>
+<section id="s-email" hidden><h1>Staff sign-in</h1><p class="muted">ForgeX team only. We'll email you a one-time sign-in link, then ask for your authenticator code.</p>
+<form id="f-email"><label>Work email<input type="email" name="email" autocomplete="email" required></label><div class="row"><button type="submit">Email me a sign-in link</button></div></form></section>
+<section id="s-sent" hidden><h1>Check your email</h1><p class="muted">If that address is on the staff list, a sign-in link is on its way. Open it in this browser.</p></section>
+<section id="s-enroll" hidden><h1>Set up two-step sign-in</h1><p class="muted">Required for staff. Scan the code with your authenticator app, then enter the 6-digit number.</p>
+<img id="qr" class="qr" alt="QR code for your authenticator app"><p class="mono" id="secret"></p>
+<form id="f-enroll"><label>6-digit code<input type="text" name="code" inputmode="numeric" maxlength="6" required></label><div id="enroll-err" class="notice err" hidden></div><div class="row"><button type="submit">Verify</button></div></form></section>
+<section id="s-verify" hidden><h1>Enter your code</h1>
+<form id="f-verify"><label>6-digit code<input type="text" name="code" inputmode="numeric" maxlength="6" required></label><div id="verify-err" class="notice err" hidden></div><div class="row"><button type="submit">Verify</button><button type="button" class="link" data-act="signout">Sign out</button></div></form></section>
+<section id="s-denied" hidden><h1>Not on the staff list</h1><p class="muted">This page is for the ForgeX team.</p><div class="row"><button class="link" data-act="signout">Sign out</button></div></section>
+<section id="s-app" hidden>
+<div class="row" style="justify-content:space-between;margin-top:8px"><h1 style="margin:0">MCP Beta admin</h1><span class="small"><span id="me"></span> · <button class="link" data-act="signout">Sign out</button></span></div>
+<div id="app-err" class="notice err" hidden></div>
+<div class="stats" id="stats"></div>
+<h2>Access requests</h2><div id="pending"></div>
+<h2>Testers</h2><div class="tablewrap"><table><thead><tr><th>Tester</th><th>Status</th><th class="r">Searches, 7d</th><th class="r">All</th><th>Last used</th><th>Apps</th><th></th></tr></thead><tbody id="testers"></tbody></table></div>
+<h2>Usage, last 30 days</h2><div class="bars" id="bars"></div>
+<div class="cols"><div><h2>Top searches</h2><ul class="plain" id="queries"></ul></div><div><h2>Apps</h2><ul class="plain" id="clients"></ul></div></div>
+<h2>Every call</h2><div class="tablewrap"><table><thead><tr><th>When</th><th>Tester</th><th>App</th><th>What</th><th class="r">Results</th><th>Status</th></tr></thead><tbody id="recent"></tbody></table></div>
+</section></main><script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.117.2";
+const sb = createClient("https://gibskbbpskfnimrpddkj.supabase.co", "sb_publishable_87kAjUlginpImjK1p5jxvA_KWdN6XUf", { auth: { persistSession: true, detectSessionInUrl: true, flowType: "implicit", storageKey: "forgex-mcp-staff" } });
+const API = "https://gibskbbpskfnimrpddkj.supabase.co/functions/v1/forgex-mcp-auth";
+const $ = (id) => document.getElementById(id);
+const show = (id) => document.querySelectorAll("main section").forEach((s) => (s.hidden = s.id !== id));
+const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const ago = (t) => { if (!t) return "never"; const m = Math.round((Date.now() - new Date(t)) / 60000); return m < 60 ? m + "m ago" : m < 1440 ? Math.round(m / 60) + "h ago" : Math.round(m / 1440) + "d ago"; };
+let factorId = null, data = null, openMail = null;
+
+async function token() { return (await sb.auth.getSession()).data.session?.access_token; }
+async function api(path, body) {
+  const r = await fetch(API + path, { method: body ? "POST" : "GET", headers: { authorization: "Bearer " + (await token()), "content-type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+  const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || "Request failed"); return j;
+}
+
+async function resolve() {
+  const { data: s } = await sb.auth.getSession();
+  if (!s.session) return show("s-email");
+  const { data: f } = await sb.auth.mfa.listFactors();
+  const totp = f?.totp?.find((x) => x.status === "verified");
+  if (!totp) return enroll();
+  const { data: aal } = await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+  if (aal?.currentLevel !== "aal2") { factorId = totp.id; return show("s-verify"); }
+  try { data = await api("/api/admin/overview"); } catch { return show("s-denied"); }
+  render(); show("s-app");
+}
+async function enroll() {
+  const { data: l } = await sb.auth.mfa.listFactors();
+  for (const x of l?.all || []) if (x.status === "unverified") await sb.auth.mfa.unenroll({ factorId: x.id });
+  const { data: e } = await sb.auth.mfa.enroll({ factorType: "totp", friendlyName: "ForgeX MCP staff " + new Date().toISOString().slice(0, 10) });
+  factorId = e.id; $("qr").src = e.totp.qr_code; $("secret").textContent = "Or enter this key: " + e.totp.secret; show("s-enroll");
+}
+function render() {
+  const T = data.testers; $("me").textContent = data.me;
+  const stat = (l, v) => '<div class="stat"><span class="small">' + l + "</span><b>" + v + "</b></div>";
+  $("stats").innerHTML = stat("Waiting for review", T.filter((t) => t.status === "pending").length) + stat("Approved testers", T.filter((t) => t.status === "approved").length)
+    + stat("Searches, 7 days", T.reduce((s, t) => s + t.calls_7d, 0)) + stat("Active testers, 7 days", T.filter((t) => t.calls_7d > 0).length);
+  const pend = T.filter((t) => t.status === "pending");
+  $("pending").innerHTML = pend.length ? pend.map((t) => '<div class="req"><b>' + esc(t.name) + '</b> <span class="small">asked ' + ago(t.created_at) + "</span><br><span class=\"muted\">" + esc([t.title, t.company].filter(Boolean).join(", ")) + " · " + esc(t.email) + '</span><p style="white-space:pre-line">' + esc(t.use_case) + '</p><div class="row"><button class="sm" data-act="approve" data-id="' + t.id + '">Approve</button><button class="sm secondary" data-act="decline" data-id="' + t.id + '">Decline</button></div></div>').join("") : '<p class="muted">No requests waiting.</p>';
+  $("testers").innerHTML = T.filter((t) => t.status !== "pending").map((t) => "<tr><td><b>" + esc(t.name) + '</b><br><span class="small">' + esc(t.company) + " · " + esc(t.email) + '</span></td><td><span class="pill ' + t.status + '">' + t.status + "</span>" + (t.status === "approved" && !t.signed_in ? '<br><span class="small">not signed in yet</span>' : "") + '</td><td class="r">' + t.calls_7d + '</td><td class="r">' + t.calls_total + "</td><td>" + ago(t.last_call_at) + "</td><td>" + esc((t.clients || []).join(", ") || "–") + '</td><td class="r" style="white-space:nowrap">'
+    + (t.welcome ? '<button class="sm link" data-act="mail" data-id="' + t.id + '">Welcome email</button> ' : "")
+    + (t.status === "approved" ? '<button class="sm danger" data-act="revoke" data-id="' + t.id + '">Revoke</button>' : '<button class="sm secondary" data-act="restore" data-id="' + t.id + '">' + (t.status === "revoked" ? "Restore" : "Approve") + "</button>") + "</td></tr>"
+    + (openMail === t.id && t.welcome ? '<tr><td colspan="7"><span class="small">Draft for ' + esc(t.email) + '. Nothing is sent from here. Copy it into your email and attach the setup guide.</span><pre class="mail">Subject: ' + esc(t.welcome.subject) + "\n\n" + esc(t.welcome.body) + "</pre></td></tr>" : "")).join("") || '<tr><td colspan="7" class="muted">No testers yet.</td></tr>';
+  const days = []; for (let i = 29; i >= 0; i--) days.push(new Date(Date.now() - i * 864e5).toLocaleDateString("en-CA", { timeZone: "America/New_York" }));
+  const per = {}; data.daily.forEach((d) => { (per[d.day] ||= []).push(d); });
+  const tot = (d) => (per[d] || []).reduce((s, x) => s + x.calls, 0); const max = Math.max(1, ...days.map(tot));
+  $("bars").innerHTML = days.map((d) => { const n = tot(d); return '<div class="' + (n ? "" : "z") + '" style="height:' + (n ? Math.max(4, (n / max) * 100) : 2) + '%" title="' + d + ": " + n + " calls" + (per[d] || []).map((x) => "&#10;" + esc(x.email) + ": " + x.calls).join("") + '"></div>'; }).join("");
+  $("queries").innerHTML = data.top_queries.map((q) => "<li><span>" + esc(q.query) + '</span><span class="small">' + q.calls + "× · " + q.users + "</span></li>").join("") || '<li class="muted">No searches yet.</li>';
+  $("clients").innerHTML = data.clients.map((c) => "<li><span>" + esc(c.client) + '</span><span class="small">' + c.calls + " calls · " + c.users + "</span></li>").join("") || '<li class="muted">No connections yet.</li>';
+  $("recent").innerHTML = data.recent.map((c) => "<tr><td>" + ago(c.created_at) + "</td><td>" + esc(c.email || "unknown") + "</td><td>" + esc(c.client || "–") + "</td><td>" + esc(c.tool || c.method) + ' <span class="small">' + esc(c.query || "") + '</span></td><td class="r">' + (c.result_count ?? "–") + "</td><td>" + esc(c.status) + "</td></tr>").join("") || '<tr><td colspan="6" class="muted">No calls yet.</td></tr>';
+}
+
+$("f-email").addEventListener("submit", async (e) => {
+  e.preventDefault(); const email = e.target.email.value.trim().toLowerCase();
+  await fetch(API + "/api/staff-signin", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email }) }).catch(() => null);
+  await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: location.href.split("#")[0] } });
+  show("s-sent");
+});
+for (const [form, err] of [["f-verify", "verify-err"], ["f-enroll", "enroll-err"]]) {
+  $(form).addEventListener("submit", async (e) => {
+    e.preventDefault(); const { error } = await sb.auth.mfa.challengeAndVerify({ factorId, code: e.target.code.value.trim() });
+    if (error) { $(err).textContent = "That code didn't match. Codes change every 30 seconds."; $(err).hidden = false; } else resolve();
+  });
+}
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-act]"); if (!b) return; const act = b.dataset.act, id = b.dataset.id;
+  if (act === "signout") { await sb.auth.signOut(); return resolve(); }
+  if (act === "mail") { openMail = openMail === id ? null : id; return render(); }
+  const t = data?.testers.find((x) => x.id === id);
+  if (act === "revoke" && !confirm("Revoke " + (t?.name || "this tester") + "? Every connected app loses access on its next call and their sign-ins end now.")) return;
+  b.disabled = true;
+  try { await api("/api/admin/decide", { id, action: act }); if (act === "approve" || act === "restore") openMail = id; data = await api("/api/admin/overview"); render(); }
+  catch (x) { $("app-err").textContent = x.message; $("app-err").hidden = false; }
+});
+sb.auth.onAuthStateChange((ev) => { if (ev === "SIGNED_IN" || ev === "SIGNED_OUT") resolve(); });
+resolve();
+</script></body></html>
