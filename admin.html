@@ -82,10 +82,19 @@ async function resolve() {
   try { data = await api("/api/admin/overview"); } catch { return show("s-denied"); }
   render(); show("s-app");
 }
+// One enrollment per page load. The page re-checks the session more than once on arrival (the
+// email link signs in, then the first check runs); re-enrolling each time silently replaced the
+// QR code someone had just scanned.
+let enrolling = null;
 async function enroll() {
-  const { data: l } = await sb.auth.mfa.listFactors();
-  for (const x of l?.all || []) if (x.status === "unverified") await sb.auth.mfa.unenroll({ factorId: x.id });
-  const { data: e } = await sb.auth.mfa.enroll({ factorType: "totp", friendlyName: "ForgeX MCP staff " + new Date().toISOString().slice(0, 10) });
+  enrolling ??= (async () => {
+    const { data: l } = await sb.auth.mfa.listFactors();
+    for (const x of l?.all || []) if (x.status === "unverified") await sb.auth.mfa.unenroll({ factorId: x.id });
+    const { data: e, error } = await sb.auth.mfa.enroll({ factorType: "totp", friendlyName: "ForgeX MCP staff " + new Date().toISOString().slice(0, 16) });
+    if (error || !e) throw error || new Error("Could not start setup.");
+    return e;
+  })().catch((x) => { enrolling = null; throw x; });
+  const e = await enrolling;
   factorId = e.id; $("qr").src = e.totp.qr_code; $("secret").textContent = "Or enter this key: " + e.totp.secret; show("s-enroll");
 }
 function render() {
@@ -117,7 +126,7 @@ $("f-email").addEventListener("submit", async (e) => {
 for (const [form, err] of [["f-verify", "verify-err"], ["f-enroll", "enroll-err"]]) {
   $(form).addEventListener("submit", async (e) => {
     e.preventDefault(); const { error } = await sb.auth.mfa.challengeAndVerify({ factorId, code: e.target.code.value.trim() });
-    if (error) { $(err).textContent = "That code didn't match. Codes change every 30 seconds."; $(err).hidden = false; } else resolve();
+    if (error) { $(err).textContent = /invalid|code/i.test(error.message) ? "That code didn't match. Use the newest ForgeX entry in your app; codes change every 30 seconds." : "Couldn't verify: " + error.message; $(err).hidden = false; } else { enrolling = null; resolve(); }
   });
 }
 document.addEventListener("click", async (e) => {

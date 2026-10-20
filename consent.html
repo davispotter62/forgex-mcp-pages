@@ -114,7 +114,7 @@ $("f-verify").addEventListener("submit", async (e) => {
 $("f-enroll").addEventListener("submit", async (e) => {
   e.preventDefault();
   const { error } = await sb.auth.mfa.challengeAndVerify({ factorId: enrollId, code: e.target.code.value.trim() });
-  if (error) { $("enroll-err").textContent = "That code didn't match. Check your authenticator app and try again."; $("enroll-err").hidden = false; } else run();
+  if (error) { $("enroll-err").textContent = /invalid|code/i.test(error.message) ? "That code didn't match. Use the newest ForgeX entry in your app; codes change every 30 seconds." : "Couldn't verify: " + error.message; $("enroll-err").hidden = false; } else { enrollId = null; run(); }
 });
 document.addEventListener("click", async (e) => {
   const act = e.target.closest("[data-act]")?.dataset.act; if (!act) return;
@@ -124,6 +124,7 @@ document.addEventListener("click", async (e) => {
   else if (act === "restart") show("s-email");
   else if (act === "refresh") run();
   else if (act === "enroll") {
+    if (enrollId) return show("s-enroll");
     const { data: l } = await sb.auth.mfa.listFactors();
     for (const x of l?.all || []) if (x.status === "unverified") await sb.auth.mfa.unenroll({ factorId: x.id });
     const { data, error } = await sb.auth.mfa.enroll({ factorType: "totp", friendlyName: "ForgeX Brain " + new Date().toISOString().slice(0, 10) });
