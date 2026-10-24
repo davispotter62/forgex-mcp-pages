@@ -1,5 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive"><title>Sign in with ForgeX</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src https://gibskbbpskfnimrpddkj.supabase.co; img-src 'self' data: https://gibskbbpskfnimrpddkj.supabase.co; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; base-uri 'none'; form-action 'none'">
 <script>if (window.top !== window.self) window.top.location = window.self.location;</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&family=Newsreader:opsz@6..72&display=swap">
 <style>
@@ -49,8 +50,9 @@ ul{margin:6px 0 0;padding-left:20px;color:var(--muted);font-size:14px}
 <div id="mfa-offer" class="notice" hidden>Add two-step sign-in to protect this connection. <button class="link" data-act="enroll">Set it up</button></div>
 <div class="row"><button data-act="approve">Approve</button><button class="secondary" data-act="deny">Deny</button><button class="link" data-act="signout">Not <span id="c-email2"></span>?</button></div></section>
 <section id="s-error" hidden><div class="notice err" id="error-msg"></div></section>
-<section id="s-redirect" hidden><p class="muted">Taking you back to your assistant…</p></section></main><script type="module">
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.117.2";
+<section id="s-redirect" hidden><p class="muted">Taking you back to your assistant…</p></section></main><script src="assets/supabase.js" integrity="sha384-Rj26LVGvoeRVR6+mwQmFfcR3QOBEwT+ZmuCWpuiqeTzJpCs0ER4ITAWGb4Hiy3Ok" crossorigin="anonymous"></script>
+<script>
+const { createClient } = window.supabase;
 const sb = createClient("https://gibskbbpskfnimrpddkj.supabase.co", "sb_publishable_87kAjUlginpImjK1p5jxvA_KWdN6XUf", { auth: { persistSession: true, detectSessionInUrl: true, flowType: "implicit" } });
 const authId = new URLSearchParams(location.search).get("authorization_id") || "";
 const $ = (id) => document.getElementById(id);
