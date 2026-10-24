@@ -25,14 +25,25 @@ button:disabled{opacity:.5;cursor:default}
 ul{margin:6px 0 0;padding-left:20px;color:var(--muted);font-size:14px}
 .qr{width:176px;height:176px;border:1px solid var(--rule);background:#fff;padding:8px;margin-top:12px}
 .mono{font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-size:12px;word-break:break-all;color:var(--muted)}
+button.wide{width:100%;height:46px;font-size:15px}
+input.code{font:500 26px/1 "Geist Mono",ui-monospace,Menlo,monospace;letter-spacing:.4em;text-align:center;padding:12px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.tile{border:1px solid var(--rule);background:#fff;padding:16px;text-align:left;cursor:pointer;height:auto;color:var(--ink);font:500 15px/1.3 inherit}
+.tile:hover,.tile.on{border-color:var(--ink)}.tile span{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:4px}
+ol.steps{margin:14px 0 0;padding-left:22px}ol.steps li{margin:10px 0;font-size:15px}
+.addr{display:flex;gap:8px;margin-top:6px}.addr code{flex:1;border:1px solid var(--rule);background:#fff;padding:9px 10px;font:12px/1.4 "Geist Mono",ui-monospace,Menlo,monospace;word-break:break-all}
+a.btn{display:inline-flex;align-items:center;height:40px;padding:0 16px;background:var(--ink);color:var(--ivory);text-decoration:none;font-size:14px;font-weight:500}
 [hidden]{display:none!important}</style></head><body><main class="card"><div class="logo" aria-label="ForgeX"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="86 35 908 237" style="enable-background:new 86 35 908 237;" xml:space="preserve" width="908" height="237"> <style type="text/css"> 	.st0{fill:#010101;} </style> <g> 	<g> 		<path d="M90,215.9V39.1h118.2v28.5h-85.7v48.9h75v28.7h-75v70.7H90z"/> 		<path d="M286.7,218.8c-12.5,0-23.9-2.9-34.3-8.8c-10.4-5.9-18.6-13.8-24.8-24c-6.2-10.1-9.3-21.7-9.3-34.6c0-13,3.1-24.5,9.3-34.6    c6.2-10.1,14.4-18.1,24.7-24c10.3-5.9,21.8-8.8,34.4-8.8c12.8,0,24.4,2.9,34.6,8.8c10.3,5.9,18.5,13.8,24.6,23.9    c6.1,10.1,9.1,21.6,9.1,34.8c0,13-3.1,24.5-9.3,34.6c-6.2,10.1-14.4,18.1-24.7,24C310.9,215.8,299.4,218.8,286.7,218.8z     M286.7,190.3c7.1,0,13.3-1.7,18.6-5c5.3-3.3,9.5-8,12.6-13.9c3.1-5.9,4.6-12.6,4.6-20.1c0-7.4-1.5-14.1-4.6-19.9    c-3.1-5.9-7.3-10.4-12.6-13.8c-5.3-3.3-11.5-5-18.6-5c-7,0-13.1,1.7-18.5,5c-5.4,3.3-9.6,7.9-12.7,13.8    c-3.1,5.9-4.6,12.5-4.6,19.9c0,7.4,1.5,14.1,4.6,20.1c3.1,5.9,7.3,10.6,12.7,13.9C273.6,188.6,279.8,190.3,286.7,190.3z"/> 		<path d="M378.3,215.9V86.8h29.4v28.7l-2.4-4.3c3-9.6,7.7-16.4,14.1-20.2c6.4-3.8,14.1-5.7,23.1-5.7h7.6v27.8h-11.2    c-8.9,0-16,2.7-21.4,8.1c-5.4,5.4-8.1,13-8.1,22.8v71.9H378.3z"/> 		<path d="M530,268.1c-9.7,0-18.6-1.6-26.8-4.7c-8.2-3.2-15.3-7.6-21.2-13.2c-5.9-5.6-10.2-12.2-12.9-19.8l29-10.9    c1.9,6,5.7,10.9,11.3,14.6c5.6,3.7,12.5,5.6,20.5,5.6c6.3,0,11.9-1.2,16.7-3.6c4.8-2.4,8.6-5.8,11.4-10.3    c2.8-4.5,4.2-9.9,4.2-16.3v-29.4l5.7,7.1c-4.4,7.8-10.3,13.6-17.7,17.6c-7.4,4-15.9,5.9-25.5,5.9c-11.9,0-22.5-2.8-32-8.3    c-9.5-5.5-17-13.1-22.4-22.8c-5.5-9.7-8.2-20.5-8.2-32.5c0-12.2,2.7-23,8.2-32.5c5.5-9.5,12.9-17,22.2-22.4    c9.3-5.5,19.9-8.2,31.8-8.2c9.6,0,18.1,2,25.4,6.1c7.3,4,13.4,9.8,18.3,17.4l-4,7.8V86.8h29.4v122.7c0,11.2-2.7,21.3-8.2,30.1    c-5.5,8.9-12.9,15.8-22.3,20.9C553.2,265.6,542.3,268.1,530,268.1z M528.6,182c6.6,0,12.5-1.5,17.4-4.4c5-2.9,8.9-7,11.7-12.2    s4.3-11.2,4.3-18c0-6.6-1.5-12.6-4.4-17.8c-2.9-5.2-6.9-9.3-11.9-12.3c-5-3-10.7-4.5-17.2-4.5s-12.3,1.5-17.6,4.5    c-5.2,3-9.3,7.1-12.2,12.3c-2.9,5.2-4.4,11.2-4.4,17.8c0,6.6,1.5,12.6,4.4,17.8c2.9,5.2,7,9.3,12.1,12.3    C516,180.5,521.9,182,528.6,182z"/> 		<path d="M683.1,218.8c-13.3,0-25-3-35-9c-10-6-17.8-14.2-23.4-24.4c-5.5-10.3-8.3-21.7-8.3-34.2c0-13,2.8-24.5,8.5-34.5    c5.7-10,13.4-18,23-23.9c9.6-5.9,20.6-8.8,32.7-8.8c10.1,0,19,1.7,26.7,5c7.7,3.3,14.2,7.9,19.6,13.8c5.4,5.9,9.5,12.5,12.3,20.1    c2.8,7.5,4.3,15.6,4.3,24.3c0,2.4-0.1,4.7-0.4,7c-0.2,2.3-0.7,4.4-1.3,6.3h-99.7v-24h82.1l-15,11.2c1.6-7.3,1.3-13.8-0.8-19.5    c-2.1-5.7-5.6-10.2-10.4-13.5c-4.8-3.3-10.6-5-17.4-5c-6.5,0-12.3,1.7-17.3,5c-5.1,3.3-8.9,8.1-11.5,14.2    c-2.6,6.2-3.6,13.7-3,22.5c-0.6,7.9,0.4,14.9,3.2,21c2.8,6.1,6.9,10.8,12.3,14.1c5.5,3.3,11.7,5,18.9,5c7.1,0,13.2-1.5,18.2-4.5    c5-3,8.9-7,11.7-12.1l25.2,12.3c-2.5,6.2-6.5,11.6-11.9,16.4c-5.4,4.7-11.8,8.5-19.2,11.2C699.8,217.4,691.8,218.8,683.1,218.8z"/> 	</g> 	<g> 		<path class="st0" d="M986.5,44l3.5-4.9h-60.1c-12.5,0-24.2,6.2-31.2,16.5l-27.8,41l6.5,9L986.5,44z"/> 		<polygon class="st0" points="910.6,151.6 981.8,50.7 879.5,108.5   "/> 		<path class="st0" d="M824.2,212.4l-4.3,52.6c5.9-2.6,11.2-6.6,15.2-11.9l30.3-40.2l-11.2-21.2L824.2,212.4z"/> 		<path class="st0" d="M816.5,41.5c-4.2-1.6-8.6-2.4-13.2-2.4h-60.8l6.3,9.2l4,5.5l67.6,39.3L816.5,41.5z"/> 		<path class="st0" d="M745.5,266.8l-0.9,1.3H805c3.9,0,7.7-0.6,11.3-1.7l4.2-51.4L745.5,266.8z"/> 		<polygon class="st0" points="825.1,158.5 751.8,258.2 820.9,210.5   "/> 		<polygon class="st0" points="824.5,99.4 828.7,153.7 891.5,138.4   "/> 		<polygon class="st0" points="891.5,142 828.7,157.3 824.6,207.9 853.7,187.8   "/> 		<path class="st0" d="M906.2,261.3c6.3,4.4,13.8,6.9,21.7,6.9h60c-1.1-1.5-2.2-3.1-3.3-4.6L903.7,224L906.2,261.3z"/> 		<polygon class="st0" points="757.9,60.7 825.1,153.2 820.8,97.3   "/> 		<path class="st0" d="M980.3,257.5c-27.4-37.8-54.7-75.6-82-113.5l5.2,75.9L980.3,257.5z"/> 		<path class="st0" d="M891.1,134.2c-19.1-26.5-38.2-52.9-57.3-79.4c-3.6-5-8.4-9-13.8-11.7l4,52.1L891.1,134.2z"/> 		<path class="st0" d="M856.9,189.3l14.5,27.5l26,35.7c1.5,2.1,3.3,4,5.1,5.7l-7.8-114.7L856.9,189.3z"/> 	</g> </g> </svg></div>
 <p class="eyebrow">Ask ForgeX beta</p>
 <section id="s-loading"><p class="muted">Checking your session…</p></section>
 <section id="s-norequest" hidden><h1>Sign in with ForgeX</h1><p class="muted">Your AI assistant opens this page when you connect Ask ForgeX. Start from the connector in your assistant.</p></section>
-<section id="s-email" hidden><h1>Sign in with ForgeX</h1><p class="muted">Use the email address you were approved with. We'll send you a one-time sign-in link.</p>
-<form id="f-email"><label>Work email<input type="email" name="email" autocomplete="email" required></label><div id="email-err" class="notice err" hidden></div>
-<div class="row"><button type="submit">Email me a sign-in link</button></div></form></section>
-<section id="s-sent" hidden><h1>Check your email</h1><p class="muted">If <span id="sent-to"></span> is approved for the beta, a sign-in link is on its way. Open it in this browser to finish connecting.</p><div class="row"><button class="link" data-act="restart">Use a different email</button></div></section>
+<section id="s-email" hidden><h1>Sign in with ForgeX</h1><p class="muted">Enter the work email you signed up with. We'll email you a 6-digit code.</p>
+<form id="f-email"><label>Work email<input type="email" name="email" autocomplete="email" required autofocus></label><div id="email-err" class="notice err" hidden></div>
+<div class="row"><button type="submit" class="wide">Email me a code</button></div></form></section>
+<section id="s-sent" hidden><h1>Check your email</h1><p class="muted">If <b id="sent-to"></b> has access, we've sent a 6-digit code. It can take a minute.</p>
+<form id="f-code"><label>6-digit code<input type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required class="code"></label><div id="code-err" class="notice err" hidden></div>
+<div class="row"><button type="submit" class="wide">Continue</button></div></form>
+<p class="small" style="margin-top:14px">You can also click the link in that email. <button class="link small" data-act="resend">Send a new code</button> · <button class="link small" data-act="restart">Use a different email</button></p></section>
 <section id="s-verify" hidden><h1>Enter your code</h1><p class="muted">Open your authenticator app and enter the 6-digit code for ForgeX.</p>
 <form id="f-verify"><label>6-digit code<input type="text" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required></label><div id="verify-err" class="notice err" hidden></div>
 <div class="row"><button type="submit">Verify</button><button type="button" class="link" data-act="signout">Sign out</button></div></form></section>
@@ -42,13 +53,12 @@ ul{margin:6px 0 0;padding-left:20px;color:var(--muted);font-size:14px}
 <div class="row"><button type="submit">Verify and continue</button><button type="button" class="link" data-act="refresh">Not now</button></div></form></section>
 <section id="s-blocked" hidden><h1 id="blocked-title">Not approved yet</h1><div class="notice err" id="blocked-msg"></div>
 <div class="row"><button class="secondary" data-act="deny">Back to my assistant</button><button class="link" data-act="signout">Use a different email</button></div></section>
-<section id="s-consent" hidden><h1>Connect <span class="c-name"></span> to Ask ForgeX</h1>
-<p><strong class="c-name"></strong> wants to use your Ask ForgeX sign-in (<span id="c-email"></span>) to search ForgeX research for you.</p>
-<p style="font-weight:500;margin-top:16px">It will be able to</p><ul><li>Search ForgeX's published reports, survey data, webinars and podcasts</li><li>Show excerpts, stats, slides and links back to research.forgex.ai</li></ul>
-<p style="font-weight:500;margin-top:12px">It won't be able to</p><ul><li>See anything else about you or your ForgeX relationship</li><li>Read anything on your computer or post anywhere for you</li></ul>
-<p class="small" style="margin-top:14px">ForgeX logs what you ask, which app you use and when, to run the beta. After you approve, you'll return to <span id="c-host"></span>. You can disconnect it from your assistant at any time.</p>
-<div id="mfa-offer" class="notice" hidden>Add two-step sign-in to protect this connection. <button class="link" data-act="enroll">Set it up</button></div>
-<div class="row"><button data-act="approve">Approve</button><button class="secondary" data-act="deny">Deny</button><button class="link" data-act="signout">Not <span id="c-email2"></span>?</button></div></section>
+<section id="s-consent" hidden><h1>Allow <span class="c-name"></span> to use Ask ForgeX?</h1>
+<p class="muted"><span class="c-name"></span> will be able to search ForgeX research and show you its stats, slides and links. It can't see anything else about you, and it can't post or change anything.</p>
+<div class="row"><button data-act="approve" class="wide">Allow</button></div>
+<p class="small" style="margin-top:12px;text-align:center">Signed in as <span id="c-email"></span> · <button class="link small" data-act="signout">Not you?</button> · <button class="link small" data-act="deny">Cancel</button></p>
+<div id="mfa-offer" class="notice" hidden>Want extra protection? <button class="link" data-act="enroll">Turn on two-step sign-in</button></div>
+<p class="small" style="margin-top:14px">ForgeX logs what you ask, which app you use and when, to run the beta. After you allow, you'll go back to <span id="c-host"></span>. You can disconnect anytime from your assistant's settings.</p></section>
 <section id="s-error" hidden><div class="notice err" id="error-msg"></div></section>
 <section id="s-redirect" hidden><p class="muted">Taking you back to your assistant…</p></section></main><script src="assets/supabase.js" integrity="sha384-Rj26LVGvoeRVR6+mwQmFfcR3QOBEwT+ZmuCWpuiqeTzJpCs0ER4ITAWGb4Hiy3Ok" crossorigin="anonymous"></script>
 <script>
@@ -82,7 +92,7 @@ async function resolve() {
   if (data.redirect_url && !data.authorization_id) { show("s-redirect"); return location.assign(data.redirect_url); }
   const name = data.client?.name || "This app";
   document.querySelectorAll(".c-name").forEach((n) => (n.textContent = name));
-  $("c-email").textContent = $("c-email2").textContent = data.user?.email || email;
+  $("c-email").textContent = data.user?.email || email;
   let host = data.redirect_uri; try { host = new URL(data.redirect_uri).host || host; } catch {}
   $("c-host").textContent = host;
   $("mfa-offer").hidden = !!totp;
@@ -98,15 +108,30 @@ async function decide(approve) {
   location.assign(r.data.redirect_url);
 }
 
+let pendingEmail = "";
+async function sendCode(email) {
+  const r = await fetch("https://gibskbbpskfnimrpddkj.supabase.co" + "/functions/v1/forgex-mcp-auth/api/signin", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email }) }).catch(() => null);
+  const j = r ? await r.json().catch(() => ({})) : {};
+  if (r && !r.ok && j.error) return j.error;
+  await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: location.href } });
+  return null;
+}
 $("f-email").addEventListener("submit", async (e) => {
   e.preventDefault(); $("email-err").hidden = true;
   const btn = e.target.querySelector("button"); btn.disabled = true; btn.textContent = "Sending…";
-  const email = e.target.email.value.trim().toLowerCase();
-  const r = await fetch("https://gibskbbpskfnimrpddkj.supabase.co" + "/functions/v1/forgex-mcp-auth/api/signin", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email }) }).catch(() => null);
-  const j = r ? await r.json().catch(() => ({})) : {};
-  if (r && !r.ok && j.error) { $("email-err").textContent = j.error; $("email-err").hidden = false; btn.disabled = false; btn.textContent = "Email me a sign-in link"; return; }
-  await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: location.href } });
-  $("sent-to").textContent = email; btn.disabled = false; btn.textContent = "Email me a sign-in link"; show("s-sent");
+  pendingEmail = e.target.email.value.trim().toLowerCase();
+  const err = await sendCode(pendingEmail);
+  btn.disabled = false; btn.textContent = "Email me a code";
+  if (err) { $("email-err").textContent = err; $("email-err").hidden = false; return; }
+  $("sent-to").textContent = pendingEmail; show("s-sent"); $("f-code").code.focus();
+});
+$("f-code").addEventListener("submit", async (e) => {
+  e.preventDefault(); $("code-err").hidden = true;
+  const btn = e.target.querySelector("button"); btn.disabled = true;
+  const { error } = await sb.auth.verifyOtp({ email: pendingEmail, token: e.target.code.value.trim(), type: "email" });
+  btn.disabled = false;
+  if (error) { $("code-err").textContent = /expired/i.test(error.message) ? "That code has expired. Send a new one below." : "That code didn't match. Check the newest email from Ask ForgeX."; $("code-err").hidden = false; return; }
+  run();
 });
 $("f-verify").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -124,6 +149,7 @@ document.addEventListener("click", async (e) => {
   else if (act === "deny") decide(false);
   else if (act === "signout") { await sb.auth.signOut(); run(); }
   else if (act === "restart") show("s-email");
+  else if (act === "resend") { if (pendingEmail) { await sendCode(pendingEmail); $("code-err").textContent = "New code sent."; $("code-err").hidden = false; } }
   else if (act === "refresh") run();
   else if (act === "enroll") {
     if (enrollId) return show("s-enroll");
