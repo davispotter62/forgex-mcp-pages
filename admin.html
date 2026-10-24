@@ -50,6 +50,14 @@ button.sm{height:30px;padding:0 10px;font-size:13px}button.danger{background:#ff
 <div class="row" style="justify-content:space-between;margin-top:8px"><h1 style="margin:0">MCP Beta admin</h1><span class="small"><span id="me"></span> · <button class="link" data-act="signout">Sign out</button></span></div>
 <div id="app-err" class="notice err" hidden></div>
 <div class="stats" id="stats"></div>
+<h2>Invite links</h2>
+<p class="small">Anyone who requests access through a live invite link is approved at once. Everyone else still waits for you below.</p>
+<form id="f-invite" class="row" style="margin-top:8px;align-items:flex-end">
+<label style="flex:2;margin:0">Name<input type="text" name="label" placeholder="e.g. Community Slack, October" required maxlength="80"></label>
+<label style="flex:1;margin:0">Max uses<input type="text" name="max_uses" inputmode="numeric" placeholder="no limit"></label>
+<label style="flex:1;margin:0">Expires in days<input type="text" name="days" inputmode="numeric" placeholder="never"></label>
+<button type="submit">Create link</button></form>
+<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Link</th><th class="r">Used</th><th>Expires</th><th>Status</th><th></th></tr></thead><tbody id="invites"></tbody></table></div>
 <h2>Access requests</h2><div id="pending"></div>
 <h2>Testers</h2><div class="tablewrap"><table><thead><tr><th>Tester</th><th>Status</th><th class="r">Searches, 7d</th><th class="r">All</th><th>Last used</th><th>Apps</th><th></th></tr></thead><tbody id="testers"></tbody></table></div>
 <h2>Usage, last 30 days</h2><div class="bars" id="bars"></div>
@@ -102,9 +110,13 @@ function render() {
   const stat = (l, v) => '<div class="stat"><span class="small">' + l + "</span><b>" + v + "</b></div>";
   $("stats").innerHTML = stat("Waiting for review", T.filter((t) => t.status === "pending").length) + stat("Approved testers", T.filter((t) => t.status === "approved").length)
     + stat("Searches, 7 days", T.reduce((s, t) => s + t.calls_7d, 0)) + stat("Active testers, 7 days", T.filter((t) => t.calls_7d > 0).length);
+  const link = (c) => location.href.split("#")[0].split("?")[0].replace(/admin(.html)?$/, "request") + "?invite=" + c;
+  $("invites").innerHTML = (data.invites || []).map((i) => { const live = i.active && !i.expired && (i.max_uses == null || i.uses < i.max_uses);
+    return "<tr><td><b>" + esc(i.label) + '</b><br><span class="mono">' + esc(link(i.code)) + '</span></td><td class="r">' + i.uses + (i.max_uses ? " / " + i.max_uses : "") + "</td><td>" + (i.expires_at ? new Date(i.expires_at).toLocaleDateString() : "never") + '</td><td><span class="pill ' + (live ? "approved" : "declined") + '">' + (live ? "live" : i.active ? (i.expired ? "expired" : "used up") : "off") + '</span></td><td class="r" style="white-space:nowrap"><button class="sm secondary" data-act="copy-invite" data-code="' + i.code + '">Copy</button> '
+      + (i.active ? '<button class="sm danger" data-act="invite-off" data-code="' + i.code + '">Turn off</button>' : '<button class="sm secondary" data-act="invite-on" data-code="' + i.code + '">Turn on</button>') + "</td></tr>"; }).join("") || '<tr><td colspan="5" class="muted">No invite links yet.</td></tr>';
   const pend = T.filter((t) => t.status === "pending");
   $("pending").innerHTML = pend.length ? pend.map((t) => '<div class="req"><b>' + esc(t.name) + '</b> <span class="small">asked ' + ago(t.created_at) + "</span><br><span class=\"muted\">" + esc([t.title, t.company].filter(Boolean).join(", ")) + " · " + esc(t.email) + '</span><p style="white-space:pre-line">' + esc(t.use_case) + '</p><div class="row"><button class="sm" data-act="approve" data-id="' + t.id + '">Approve</button><button class="sm secondary" data-act="decline" data-id="' + t.id + '">Decline</button></div></div>').join("") : '<p class="muted">No requests waiting.</p>';
-  $("testers").innerHTML = T.filter((t) => t.status !== "pending").map((t) => "<tr><td><b>" + esc(t.name) + '</b><br><span class="small">' + esc(t.company) + " · " + esc(t.email) + '</span></td><td><span class="pill ' + t.status + '">' + t.status + "</span>" + (t.status === "approved" && !t.signed_in ? '<br><span class="small">not signed in yet</span>' : "") + '</td><td class="r">' + t.calls_7d + '</td><td class="r">' + t.calls_total + "</td><td>" + ago(t.last_call_at) + "</td><td>" + esc((t.clients || []).join(", ") || "–") + '</td><td class="r" style="white-space:nowrap">'
+  $("testers").innerHTML = T.filter((t) => t.status !== "pending").map((t) => "<tr><td><b>" + esc(t.name) + '</b><br><span class="small">' + esc(t.company) + " · " + esc(t.email) + '</span></td><td><span class="pill ' + t.status + '">' + t.status + "</span>" + (t.decided_by && t.decided_by.startsWith("invite: ") ? '<br><span class="small">' + esc(t.decided_by) + "</span>" : "") + (t.status === "approved" && !t.signed_in ? '<br><span class="small">not signed in yet</span>' : "") + '</td><td class="r">' + t.calls_7d + '</td><td class="r">' + t.calls_total + "</td><td>" + ago(t.last_call_at) + "</td><td>" + esc((t.clients || []).join(", ") || "–") + '</td><td class="r" style="white-space:nowrap">'
     + (t.welcome ? '<button class="sm link" data-act="mail" data-id="' + t.id + '">Welcome email</button> ' : "")
     + (t.status === "approved" ? '<button class="sm danger" data-act="revoke" data-id="' + t.id + '">Revoke</button>' : '<button class="sm secondary" data-act="restore" data-id="' + t.id + '">' + (t.status === "revoked" ? "Restore" : "Approve") + "</button>") + "</td></tr>"
     + (openMail === t.id && t.welcome ? '<tr><td colspan="7"><span class="small">Draft for ' + esc(t.email) + '. Nothing is sent from here. Copy it into your email and attach the setup guide.</span><pre class="mail">Subject: ' + esc(t.welcome.subject) + "\n\n" + esc(t.welcome.body) + "</pre></td></tr>" : "")).join("") || '<tr><td colspan="7" class="muted">No testers yet.</td></tr>';
@@ -129,8 +141,15 @@ for (const [form, err] of [["f-verify", "verify-err"], ["f-enroll", "enroll-err"
     if (error) { $(err).textContent = /invalid|code/i.test(error.message) ? "That code didn't match. Use the newest ForgeX entry in your app; codes change every 30 seconds." : "Couldn't verify: " + error.message; $(err).hidden = false; } else { enrolling = null; resolve(); }
   });
 }
+$("f-invite").addEventListener("submit", async (e) => {
+  e.preventDefault(); const f = e.target;
+  try { await api("/api/admin/invite", { action: "create", label: f.label.value, max_uses: f.max_uses.value, days: f.days.value }); f.reset(); data = await api("/api/admin/overview"); render(); }
+  catch (x) { $("app-err").textContent = x.message; $("app-err").hidden = false; }
+});
 document.addEventListener("click", async (e) => {
   const b = e.target.closest("[data-act]"); if (!b) return; const act = b.dataset.act, id = b.dataset.id;
+  if (act === "copy-invite") { const c = b.dataset.code; await navigator.clipboard.writeText(location.href.split("#")[0].split("?")[0].replace(/admin(.html)?$/, "request") + "?invite=" + c); b.textContent = "Copied"; return; }
+  if (act === "invite-off" || act === "invite-on") { try { await api("/api/admin/invite", { action: act === "invite-on" ? "activate" : "deactivate", code: b.dataset.code }); data = await api("/api/admin/overview"); render(); } catch (x) { $("app-err").textContent = x.message; $("app-err").hidden = false; } return; }
   if (act === "signout") { await sb.auth.signOut(); return resolve(); }
   if (act === "mail") { openMail = openMail === id ? null : id; return render(); }
   const t = data?.testers.find((x) => x.id === id);
