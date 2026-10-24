@@ -1,4 +1,4 @@
-# ForgeX Brain beta pages (temporary)
+# Ask ForgeX beta pages (temporary)
 
 Static copies of the forgex-community `forgex-mcp-auth` pages (request access, Sign in with ForgeX,
 staff admin), hosted here only because Supabase's default domain won't serve HTML. They contain the
