@@ -54,6 +54,7 @@ a.btn{display:inline-flex;align-items:center;height:40px;padding:0 16px;backgrou
 <div class="row"><button class="secondary" data-act="deny">Back to my assistant</button><button class="link" data-act="signout">Use a different email</button></div></section>
 <section id="s-consent" hidden><h1>Allow <span class="c-name"></span> to use Ask ForgeX?</h1>
 <p class="muted"><span class="c-name"></span> will be able to search ForgeX research and show you its stats, slides and links. It can't see anything else about you, and it can't post or change anything.</p>
+<div id="c-warn" class="notice err" hidden>Check before you allow: this app will send you to <b id="c-warn-host"></b>, which isn't one we recognize. Only continue if you just started connecting from your own AI assistant.</div>
 <div class="row"><button data-act="approve" class="wide">Allow</button></div>
 <p class="small" style="margin-top:12px;text-align:center">Signed in as <span id="c-email"></span> · <button class="link small" data-act="signout">Not you?</button> · <button class="link small" data-act="deny">Cancel</button></p>
 <div id="mfa-offer" class="notice" hidden>Want extra protection? <button class="link" data-act="enroll">Turn on two-step sign-in</button></div>
@@ -62,7 +63,10 @@ a.btn{display:inline-flex;align-items:center;height:40px;padding:0 16px;backgrou
 <section id="s-redirect" hidden><p class="muted">Taking you back to your assistant…</p></section></main><script src="assets/supabase.js" integrity="sha384-Rj26LVGvoeRVR6+mwQmFfcR3QOBEwT+ZmuCWpuiqeTzJpCs0ER4ITAWGb4Hiy3Ok" crossorigin="anonymous"></script>
 <script>
 const { createClient } = window.supabase;
-const sb = createClient("https://gibskbbpskfnimrpddkj.supabase.co", "sb_publishable_87kAjUlginpImjK1p5jxvA_KWdN6XUf", { auth: { persistSession: true, detectSessionInUrl: true, flowType: "implicit" } });
+const sb = createClient("https://gibskbbpskfnimrpddkj.supabase.co", "sb_publishable_87kAjUlginpImjK1p5jxvA_KWdN6XUf", { auth: { persistSession: true, storage: window.sessionStorage, detectSessionInUrl: true, flowType: "implicit" } });
+// Only follow redirects to real app callbacks: https, local loopback, or an app's own scheme.
+const safeRedirect = (u) => { try { const x = new URL(u); return x.protocol === "https:" || (x.protocol === "http:" && /^(localhost|127\.0\.0\.1|\[::1\])$/.test(x.hostname)) || /^[a-z][a-z0-9+.-]*:$/.test(x.protocol) && !/^(javascript|data|blob|file|vbscript|about):$/.test(x.protocol); } catch { return false; } };
+const KNOWN_HOSTS = /(^|\.)(claude\.ai|claude\.com|anthropic\.com|chatgpt\.com|openai\.com|cursor\.com|cursor\.sh|localhost|127\.0\.0\.1)$/;
 const authId = new URLSearchParams(location.search).get("authorization_id") || "";
 const $ = (id) => document.getElementById(id);
 const show = (id) => { document.querySelectorAll("main section").forEach((s) => (s.hidden = s.id !== id)); };
@@ -88,12 +92,17 @@ async function resolve() {
   }
   const { data, error } = await sb.auth.oauth.getAuthorizationDetails(authId);
   if (error || !data) return fail("This sign-in request has expired or was already used. Go back to your AI assistant and connect again.");
-  if (data.redirect_url && !data.authorization_id) { show("s-redirect"); return location.assign(data.redirect_url); }
+  if (data.redirect_url && !data.authorization_id) {
+    if (!safeRedirect(data.redirect_url)) return fail("This app's return address isn't allowed. Go back to your AI assistant and try again.");
+    show("s-redirect"); return location.assign(data.redirect_url);
+  }
   const name = data.client?.name || "This app";
   document.querySelectorAll(".c-name").forEach((n) => (n.textContent = name));
   $("c-email").textContent = data.user?.email || email;
   let host = data.redirect_uri; try { host = new URL(data.redirect_uri).host || host; } catch {}
   $("c-host").textContent = host;
+  let known = false; try { const x = new URL(data.redirect_uri); known = x.protocol !== "https:" && x.protocol !== "http:" ? /^(cursor|vscode|vscode-insiders|windsurf|zed):$/.test(x.protocol) : KNOWN_HOSTS.test(x.hostname); } catch {}
+  $("c-warn").hidden = known; $("c-warn-host").textContent = host;
   $("mfa-offer").hidden = !!totp;
   show("s-consent");
 }
@@ -104,6 +113,7 @@ async function decide(approve) {
   const r = approve ? await sb.auth.oauth.approveAuthorization(authId, { skipBrowserRedirect: true })
                     : await sb.auth.oauth.denyAuthorization(authId, { skipBrowserRedirect: true });
   if (r.error || !r.data?.redirect_url) return fail(approve ? "We couldn't finish connecting. Go back to your AI assistant and try again." : "Request declined. You can close this tab.");
+  if (!safeRedirect(r.data.redirect_url)) return fail("This app's return address isn't allowed. Go back to your AI assistant and try again.");
   location.assign(r.data.redirect_url);
 }
 
